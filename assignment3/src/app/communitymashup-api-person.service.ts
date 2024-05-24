@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommunitymashupApiPersonService {
+export class CommunityMashupApiPersonService {
+  private apiUrl = 'https://cmnet.communitymashup.net/json/';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getPersons(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  }
 }
