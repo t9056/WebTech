@@ -1,0 +1,36 @@
+/* --------------Mashup----------------- */
+/* Stil für die Tabellen */
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    /* Fett formatierte Schrift für Tabellenkopf */
+  }
+  
+  /* Stil für die erste Zeile */
+  tr:first-child {
+    background-color: black;
+    color: white;
+  }
+  
+  /* Stil für aktiven Button */
+  button.active {
+    background-color: #4CAF50;
+    /* Grün */
+  }
+  
+  /* Stil für Button-Container */
+  #buttonContainer {
+    margin-bottom: 20px;
+  }
