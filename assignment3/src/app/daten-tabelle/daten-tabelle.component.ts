@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-daten-tabelle',
   standalone: true,
   imports: [],
   templateUrl: './daten-tabelle.component.html',
-  styleUrl: './daten-tabelle.component.css'
+  styleUrl: './daten-tabelle.component.css',
+  encapsulation: ViewEncapsulation.None // Dies wird die Stile global machen
 })
 export class DatenTabelleComponent implements OnInit {
   data: any[] = [];
