@@ -1,0 +1,67 @@
+/* --------------Automatische Slieshow - Stylesheets----------------- */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Stellt sicher, dass Padding und Border in der Gesamtbreite enthalten sind */
+  body {
+    font-family: Verdana, sans-serif;
+  }
+  
+  /* Setzt Verdana als Schriftart für den Body */
+  .mySlides {
+    display: none;
+  }
+  
+  /* Versteckt alle Elemente mit der Klasse mySlides */
+  img {
+    vertical-align: middle;
+  }
+  
+  /* Richtet Bilder vertikal in der Mitte aus */
+  .slideshow-container {
+    max-width: 100%;
+    position: relative;
+    margin: auto;
+  }
+  
+  /* Container für die Slideshow mit relativer Positionierung */
+  .fade {
+    animation-name: fade;
+    animation-duration: 3s;
+  }
+  
+  /* Definiert die Fade-Animation für den Bildübergang */
+  @keyframes fade {
+    from {
+      opacity: .4
+    }
+  
+    to {
+      opacity: 1
+    }
+  }
+  
+  /* Keyframes für die Fade-Animation */
+  @media only screen and (max-width: 300px) {
+    .text {
+      font-size: 11px;
+    }
+  }
+  
+  /* Passt die Textgröße auf kleinen Bildschirmen an */
+  /* Logo Style */
+  .logo {
+    position: absolute;
+    /* Absolute Positionierung */
+    top: 0;
+    /* Oben am Rand des Viewports */
+    left: 50%;
+    /* Zentrierung auf der horizontalen Achse */
+    transform: translateX(-50%);
+    /* Verschiebt das Logo zurück um die Hälfte seiner Breite */
+    z-index: 10;
+    /* Stellt sicher, dass das Logo über den Slides liegt */
+    max-width: 30%;
+    /* Maximale Breite des Logos */
+  }
