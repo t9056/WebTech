@@ -1,0 +1,10 @@
+<div class="modal" [class.show]="isVisible" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <ng-container *ngIf="data">
+        <h2>{{ data.title }}</h2>
+        <p>{{ data.description }}</p>
+        <!-- Füge hier weitere Details hinzu -->
+      </ng-container>
+    </div>
+  </div>

@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DetailViewComponent } from '../detail-view/detail-view.component';
 
 @Component({
   selector: 'app-daten-tabelle',
   standalone: true,
+  imports: [DetailViewComponent],
   templateUrl: './daten-tabelle.component.html',
   styleUrls: ['./daten-tabelle.component.css'],
   encapsulation: ViewEncapsulation.None // Dies wird die Stile global machen
 })
 export class DatenTabelleComponent implements OnInit {
+  @ViewChild(DetailViewComponent) detailView!: DetailViewComponent;
   data: any[] = [];
-  activeButton: HTMLElement | null = null;
-  activeType: string | null = null;
+  activeButton: any = null;
+  activeType: string | null = null; // Fügen Sie diese Zeile hinzu
 
   constructor() {}
 
@@ -42,7 +45,7 @@ export class DatenTabelleComponent implements OnInit {
         const button = document.createElement('button');
         button.textContent = item.type;
         button.id = item.type;
-        button.addEventListener('click', () => this.toggleData(item.type));
+        button.addEventListener('click', () => this.toggleData(item.type)); // Ändern Sie dies zu toggleData
         buttonContainer.appendChild(button);
       }
     });
@@ -76,11 +79,19 @@ export class DatenTabelleComponent implements OnInit {
     dataContainer.innerHTML = '';
     const table = document.createElement('table');
     const headerRow = table.insertRow();
+    const emptyHeaderCell = headerRow.insertCell();
+    emptyHeaderCell.textContent = ''; // Leere Zelle für die Details-Spalte
     const headers: string[] = [];
 
     this.data.forEach(item => {
       if (item.type === type) {
         const row = table.insertRow();
+        const detailButton = row.insertCell();
+        const button = document.createElement('button');
+        button.textContent = 'Details';
+        button.addEventListener('click', () => this.detailView.showModal(item));
+        detailButton.appendChild(button);
+
         for (const key in item) {
           if (!headers.includes(key)) {
             headers.push(key);
@@ -88,6 +99,7 @@ export class DatenTabelleComponent implements OnInit {
             headerCell.textContent = key;
           }
         }
+
         headers.forEach(header => {
           const cell = row.insertCell();
           cell.textContent = item[header];
