@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-daten-tabelle',
   standalone: true,
-  imports: [DetailViewComponent, CommonModule],
+  imports: [DetailViewComponent],
   templateUrl: './daten-tabelle.component.html',
   styleUrls: ['./daten-tabelle.component.css'],
   encapsulation: ViewEncapsulation.None // Dies wird die Stile global machen
@@ -14,7 +14,7 @@ export class DatenTabelleComponent implements OnInit {
   @ViewChild(DetailViewComponent) detailView!: DetailViewComponent;
   data: any[] = [];
   activeButton: any = null;
-  activeType: string | null = null; // Fügen Sie diese Zeile hinzu
+  activeType: string | null = null;
 
   constructor() {}
 
@@ -40,15 +40,25 @@ export class DatenTabelleComponent implements OnInit {
     if (!buttonContainer) return;
 
     const types: string[] = [];
+    const order = ['data:person', 'data:organisation'];
+    order.forEach(type => {
+      if (this.data.some(item => item.type === type)) {
+        types.push(type);
+      }
+    });
+
     this.data.forEach(item => {
       if (!types.includes(item.type)) {
         types.push(item.type);
-        const button = document.createElement('button');
-        button.textContent = item.type;
-        button.id = item.type;
-        button.addEventListener('click', () => this.toggleData(item.type)); // Ändern Sie dies zu toggleData
-        buttonContainer.appendChild(button);
       }
+    });
+
+    types.forEach(type => {
+      const button = document.createElement('button');
+      button.textContent = type;
+      button.id = type;
+      button.addEventListener('click', () => this.toggleData(type));
+      buttonContainer.appendChild(button);
     });
   }
 
@@ -80,18 +90,22 @@ export class DatenTabelleComponent implements OnInit {
     dataContainer.innerHTML = '';
     const table = document.createElement('table');
     const headerRow = table.insertRow();
-    const emptyHeaderCell = headerRow.insertCell();
-    emptyHeaderCell.textContent = ''; // Leere Zelle für die Details-Spalte
+    if (type === 'data:person' || type === 'data:organisation') {
+      const emptyHeaderCell = headerRow.insertCell();
+      emptyHeaderCell.textContent = ''; // Leere Zelle für die Details-Spalte
+    }
     const headers: string[] = [];
 
     this.data.forEach(item => {
       if (item.type === type) {
         const row = table.insertRow();
-        const detailButton = row.insertCell();
-        const button = document.createElement('button');
-        button.textContent = 'Details';
-        button.addEventListener('click', () => this.detailView.showModal(item));
-        detailButton.appendChild(button);
+        if (type === 'data:person' || type === 'data:organisation') {
+          const detailButton = row.insertCell();
+          const button = document.createElement('button');
+          button.textContent = 'Details';
+          button.addEventListener('click', () => this.detailView.showModal(item));
+          detailButton.appendChild(button);
+        }
 
         for (const key in item) {
           if (!headers.includes(key)) {
