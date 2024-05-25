@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DetailViewComponent } from '../detail-view/detail-view.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-daten-tabelle',
   standalone: true,
-  imports: [DetailViewComponent],
+  imports: [DetailViewComponent, CommonModule],
   templateUrl: './daten-tabelle.component.html',
   styleUrls: ['./daten-tabelle.component.css'],
   encapsulation: ViewEncapsulation.None // Dies wird die Stile global machen
