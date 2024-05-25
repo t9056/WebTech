@@ -4,9 +4,13 @@
     <ng-container *ngIf="data">
       <ng-container [ngSwitch]="data.type">
         <ng-container *ngSwitchCase="'data:person'">
-          <h2>{{ data.name }}</h2>
-          <p [innerHTML]="data.stringValue"></p>
-          <img *ngIf="imageUrl" [src]="imageUrl" alt="{{ data.name }}" style="width:100%;">
+          <div class="detail-container">
+            <img *ngIf="imageUrl" [src]="imageUrl" alt="{{ data.name }}" class="profile-image">
+            <div class="details">
+              <h2>{{ data.name }}</h2>
+              <div class="string-value" [innerHTML]="data.stringValue"></div>
+            </div>
+          </div>
         </ng-container>
         <ng-container *ngSwitchDefault>
           <h2>Details</h2>
