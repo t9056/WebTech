@@ -1,10 +1,24 @@
 <div class="modal" [class.show]="isVisible" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <ng-container *ngIf="data">
-        <h2>{{ data.title }}</h2>
-        <p>{{ data.description }}</p>
-        <!-- Füge hier weitere Details hinzu -->
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <ng-container *ngIf="data">
+      <ng-container [ngSwitch]="data.type">
+        <ng-container *ngSwitchCase="'data:person'">
+          <h2>Person Details</h2>
+          <p><strong>Ident:</strong> {{ data.ident }}</p>
+          <p><strong>Last Modified:</strong> {{ data.lastModified }}</p>
+          <p><strong>Created:</strong> {{ data.created }}</p>
+          <p><strong>Name:</strong> {{ data.name }}</p>
+          <p><strong>First Name:</strong> {{ data.firstName }}</p>
+          <p><strong>Last Name:</strong> {{ data.lastName }}</p>
+          <p><strong>Connected By:</strong> {{ data.connectedBy }}</p>
+          <!-- Füge weitere Felder hinzu, die spezifisch für 'data:person' sind -->
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <h2>Details</h2>
+          <pre>{{ data | json }}</pre>
+        </ng-container>
       </ng-container>
-    </div>
+    </ng-container>
   </div>
+</div>
