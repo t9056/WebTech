@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-daten-tabelle',
   standalone: true,
-  imports: [],
   templateUrl: './daten-tabelle.component.html',
-  styleUrl: './daten-tabelle.component.css',
+  styleUrls: ['./daten-tabelle.component.css'],
   encapsulation: ViewEncapsulation.None // Dies wird die Stile global machen
 })
 export class DatenTabelleComponent implements OnInit {
   data: any[] = [];
-  activeButton: any = null;
+  activeButton: HTMLElement | null = null;
+  activeType: string | null = null;
 
   constructor() {}
 
@@ -42,10 +42,31 @@ export class DatenTabelleComponent implements OnInit {
         const button = document.createElement('button');
         button.textContent = item.type;
         button.id = item.type;
-        button.addEventListener('click', () => this.showData(item.type));
+        button.addEventListener('click', () => this.toggleData(item.type));
         buttonContainer.appendChild(button);
       }
     });
+  }
+
+  toggleData(type: string): void {
+    if (this.activeType === type) {
+      this.clearData();
+    } else {
+      this.showData(type);
+    }
+  }
+
+  clearData(): void {
+    const dataContainer = document.getElementById('dataContainer');
+    if (dataContainer) {
+      dataContainer.innerHTML = '';
+    }
+
+    if (this.activeButton) {
+      this.activeButton.classList.remove('active');
+    }
+    this.activeButton = null;
+    this.activeType = null;
   }
 
   showData(type: string): void {
@@ -84,5 +105,6 @@ export class DatenTabelleComponent implements OnInit {
       clickedButton.classList.add('active');
       this.activeButton = clickedButton;
     }
+    this.activeType = type;
   }
 }
