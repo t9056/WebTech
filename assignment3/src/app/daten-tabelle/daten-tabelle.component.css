@@ -135,3 +135,10 @@ button {
   max-height: 30px;
   height: 30px;
 }
+
+/* Info-Text Stil */
+.info-text {
+  font-size: 12px; /* Kleinere Schriftgröße */
+  text-align: center; /* Rechtsbündig */
+  margin: 10px 0; /* Abstand von 10px oben und unten */
+}

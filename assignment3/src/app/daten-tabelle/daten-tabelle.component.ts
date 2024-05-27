@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DetailViewComponent } from '../detail-view/detail-view.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-daten-tabelle',
   standalone: true,
-  imports: [DetailViewComponent],
+  imports: [DetailViewComponent, CommonModule],
   templateUrl: './daten-tabelle.component.html',
   styleUrls: ['./daten-tabelle.component.css'],
   encapsulation: ViewEncapsulation.None // Dies wird die Stile global machen
@@ -16,6 +17,7 @@ export class DatenTabelleComponent implements OnInit {
   activeButton: any = null;
   activeType: string | null = null;
   searchTerm: string = '';
+  tableVisible: boolean = false; // Neue Variable für die Sichtbarkeit der Tabelle
 
   constructor() {}
 
@@ -83,6 +85,7 @@ export class DatenTabelleComponent implements OnInit {
     }
     this.activeButton = null;
     this.activeType = null;
+    this.tableVisible = false; // Tabelle wird ausgeblendet
   }
 
   highlightText(text: string): string {
@@ -149,6 +152,7 @@ export class DatenTabelleComponent implements OnInit {
       this.activeButton = clickedButton;
     }
     this.activeType = type;
+    this.tableVisible = true; // Tabelle wird angezeigt
   }
 
   showCellModal(content: string): void {
