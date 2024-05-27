@@ -15,6 +15,7 @@ export class DatenTabelleComponent implements OnInit {
   filteredData: any[] = [];
   activeButton: any = null;
   activeType: string | null = null;
+  searchTerm: string = '';
 
   constructor() {}
 
@@ -84,6 +85,14 @@ export class DatenTabelleComponent implements OnInit {
     this.activeType = null;
   }
 
+  highlightText(text: string): string {
+    if (!this.searchTerm) {
+      return text;
+    }
+    const regex = new RegExp(`(${this.searchTerm})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
   showData(type: string): void {
     const dataContainer = document.getElementById('dataContainer');
     if (!dataContainer) return;
@@ -121,7 +130,7 @@ export class DatenTabelleComponent implements OnInit {
           cell.addEventListener('click', () => this.showCellModal(item[header]));
           const content = item[header] || '-'; // Zeigt "-" für leere Felder an
           const div = document.createElement('div');
-          div.textContent = content;
+          div.innerHTML = this.highlightText(content);
           cell.appendChild(div);
         });
       }
@@ -143,20 +152,20 @@ export class DatenTabelleComponent implements OnInit {
   showCellModal(content: string): void {
     const modal = document.getElementById('cellModal')!;
     const cellContent = document.getElementById('cellContent')!;
-    cellContent.textContent = content;
-    modal.style.display = 'block';
+    cellContent.innerHTML = this.highlightText(content);
+    modal.classList.add('show');
   }
 
   closeCellModal(): void {
     const modal = document.getElementById('cellModal')!;
-    modal.style.display = 'none';
+    modal.classList.remove('show');
   }
 
   onSearch(event: Event): void {
-    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+    this.searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
     this.filteredData = this.data.filter(item => {
       return Object.values(item).some(value => 
-        String(value).toLowerCase().includes(searchTerm)
+        String(value).toLowerCase().includes(this.searchTerm)
       );
     });
     if (this.activeType) {

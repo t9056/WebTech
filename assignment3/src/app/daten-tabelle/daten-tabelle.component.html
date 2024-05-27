@@ -30,8 +30,8 @@
 <app-detail-view></app-detail-view>
 
 <!-- Modal für den Inhalt einer Zelle -->
-<div id="cellModal" class="modal">
-  <div class="modal-content">
+<div id="cellModal" class="modal" (click)="closeCellModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
     <span class="close" (click)="closeCellModal()">&times;</span>
     <p id="cellContent"></p>
   </div>
