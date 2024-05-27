@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DetailViewComponent } from '../detail-view/detail-view.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-daten-tabelle',
@@ -13,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class DatenTabelleComponent implements OnInit {
   @ViewChild(DetailViewComponent) detailView!: DetailViewComponent;
   data: any[] = [];
+  filteredData: any[] = [];
   activeButton: any = null;
   activeType: string | null = null;
 
@@ -28,6 +28,7 @@ export class DatenTabelleComponent implements OnInit {
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
         this.data = JSON.parse(xmlHttp.responseText)['dataset']['items'];
+        this.filteredData = this.data;
         this.createButtons();
       }
     };
@@ -96,7 +97,7 @@ export class DatenTabelleComponent implements OnInit {
     }
     const headers: string[] = [];
 
-    this.data.forEach(item => {
+    this.filteredData.forEach(item => {
       if (item.type === type) {
         const row = table.insertRow();
         if (type === 'data:person' || type === 'data:organisation') {
@@ -117,7 +118,13 @@ export class DatenTabelleComponent implements OnInit {
 
         headers.forEach(header => {
           const cell = row.insertCell();
-          cell.textContent = item[header];
+          const div = document.createElement('div');
+          if (['stringValue', 'metaTags', 'fileUrl'].includes(header)) {
+            div.className = 'cell-content';
+            div.addEventListener('click', () => this.toggleExpand(div));
+          }
+          div.textContent = item[header];
+          cell.appendChild(div);
         });
       }
     });
@@ -133,5 +140,21 @@ export class DatenTabelleComponent implements OnInit {
       this.activeButton = clickedButton;
     }
     this.activeType = type;
+  }
+
+  toggleExpand(element: HTMLElement): void {
+    element.classList.toggle('expanded');
+  }
+
+  onSearch(event: Event): void {
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredData = this.data.filter(item => {
+      return Object.values(item).some(value => 
+        String(value).toLowerCase().includes(searchTerm)
+      );
+    });
+    if (this.activeType) {
+      this.showData(this.activeType);
+    }
   }
 }

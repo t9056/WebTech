@@ -1,43 +1,78 @@
-/* --------------Mashup----------------- */
+/* -------------- Mashup Tabelle ----------------- */
 /* Stil für die Tabellen */
 table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    /* Fett formatierte Schrift für Tabellenkopf */
-  }
-  
-  /* Stil für die erste Zeile */
-  tr:first-child {
-    background-color: black;
-    color: white;
-  }
-  
-  /* Stil für aktiven Button */
-  button.active {
-    background-color: #4CAF50;
-    /* Grün */
-  }
-  
-  /* Stil für Button-Container */
-  #buttonContainer {
-    margin-bottom: 20px;
-  }
-/* --------------MashupData Titel----------------- */
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  /* Fett formatierte Schrift für Tabellenkopf */
+}
+
+/* Stil für die erste Zeile */
+tr:first-child {
+  background-color: black;
+  color: white;
+}
+
+/* Stil für aktiven Button */
+button.active {
+  background-color: #4CAF50;
+  /* Grün */
+}
+
+/* Stil für Button-Container */
+#buttonContainer {
+  margin-bottom: 20px;
+}
+
+.cell-content {
+  max-height: 1.5em; /* Beschränkt die Höhe auf eine Zeile */
+  max-width: 300px; /* Maximale Breite der Zelle */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+}
+
+.cell-content.expanded {
+  max-height: none;
+  white-space: normal;
+  overflow: visible;
+}
+
+.cell-content::after {
+  content: 'Mehr anzeigen';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  padding: 2px 5px;
+  cursor: pointer;
+  font-size: 12px;
+  color: blue;
+}
+
+.cell-content.expanded::after {
+  content: 'Weniger anzeigen';
+}
+
+/* -------------- Titel ----------------- */
 .container {
   text-align: center;
   padding-left: 8px;
+  margin-top: 20px; /* Abstand nach oben */
 }
 
 .title {
@@ -65,9 +100,21 @@ table {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 button {
-  margin: 10px;
+  margin: 5px;
+}
+
+/* -------------- Suchzeile ----------------- */
+
+.search-bar {
+  width: 50%;
+  padding: 10px;
+  margin-top: 1px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
