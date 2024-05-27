@@ -122,6 +122,7 @@ export class DatenTabelleComponent implements OnInit {
             headers.push(key);
             const headerCell = headerRow.insertCell();
             headerCell.textContent = key;
+            headerCell.addEventListener('click', () => this.showCellModal(key));
           }
         }
 
