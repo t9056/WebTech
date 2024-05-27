@@ -87,7 +87,7 @@ export class DatenTabelleComponent implements OnInit {
   showData(type: string): void {
     const dataContainer = document.getElementById('dataContainer');
     if (!dataContainer) return;
-
+  
     dataContainer.innerHTML = '';
     const table = document.createElement('table');
     const headerRow = table.insertRow();
@@ -96,7 +96,7 @@ export class DatenTabelleComponent implements OnInit {
       emptyHeaderCell.textContent = ''; // Leere Zelle für die Details-Spalte
     }
     const headers: string[] = [];
-
+  
     this.filteredData.forEach(item => {
       if (item.type === type) {
         const row = table.insertRow();
@@ -107,7 +107,7 @@ export class DatenTabelleComponent implements OnInit {
           button.addEventListener('click', () => this.detailView.showModal(item));
           detailButton.appendChild(button);
         }
-
+  
         for (const key in item) {
           if (!headers.includes(key)) {
             headers.push(key);
@@ -115,22 +115,23 @@ export class DatenTabelleComponent implements OnInit {
             headerCell.textContent = key;
           }
         }
-
+  
         headers.forEach(header => {
           const cell = row.insertCell();
           const div = document.createElement('div');
+          const content = item[header] || '-'; // Zeigt "-" für leere Felder an
           if (['stringValue', 'metaTags', 'fileUrl'].includes(header)) {
             div.className = 'cell-content';
             div.addEventListener('click', () => this.toggleExpand(div));
           }
-          div.textContent = item[header];
+          div.textContent = content;
           cell.appendChild(div);
         });
       }
     });
-
+  
     dataContainer.appendChild(table);
-
+  
     if (this.activeButton) {
       this.activeButton.classList.remove('active');
     }

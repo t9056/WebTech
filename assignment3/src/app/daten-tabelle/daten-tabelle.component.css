@@ -3,6 +3,7 @@
 table {
   border-collapse: collapse;
   width: 100%;
+  font-size: 12px; /* Schriftgröße für die gesamte Tabelle verkleinern */
 }
 
 th,
@@ -10,12 +11,12 @@ td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  /* Fett formatierte Schrift für Tabellenkopf */
+  max-width: 50px; /* Maximale Breite der Zellen */
+  height: 40px; /* Höhe für alle Zeilen */
+  max-height: 40px; /* Maximale Höhe für alle Zeilen */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Stil für die erste Zeile */
@@ -52,7 +53,7 @@ button.active {
 }
 
 .cell-content::after {
-  content: 'Mehr anzeigen';
+  content: '[v]';
   display: block;
   position: absolute;
   bottom: 0;
@@ -65,7 +66,7 @@ button.active {
 }
 
 .cell-content.expanded::after {
-  content: 'Weniger anzeigen';
+  content: '[^]';
 }
 
 /* -------------- Titel ----------------- */
