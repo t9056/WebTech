@@ -132,7 +132,7 @@ export class DatenTabelleComponent implements OnInit {
         headers.forEach(header => {
           const cell = row.insertCell();
           cell.addEventListener('click', () => this.showCellModal(item[header]));
-          const content = item[header] || '-'; // Zeigt "-" für leere Felder an
+          const content = item[header] || ''; // Zeigt "-" für leere Felder an
           const div = document.createElement('div');
           div.innerHTML = this.highlightText(content);
           div.classList.add('truncate'); // Add a class to handle overflow
