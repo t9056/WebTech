@@ -131,6 +131,7 @@ export class DatenTabelleComponent implements OnInit {
           const content = item[header] || '-'; // Zeigt "-" für leere Felder an
           const div = document.createElement('div');
           div.innerHTML = this.highlightText(content);
+          div.classList.add('truncate'); // Add a class to handle overflow
           cell.appendChild(div);
         });
       }

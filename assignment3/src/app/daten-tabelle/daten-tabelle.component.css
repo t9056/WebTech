@@ -6,17 +6,16 @@ table {
   font-size: 12px; /* Schriftgröße für die gesamte Tabelle verkleinern */
 }
 
-th,
-td {
+th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
-  max-width: 150px; /* Maximale Breite der Zellen */
-  height: 40px; /* Höhe für alle Zeilen */
-  max-height: 40px; /* Maximale Höhe für alle Zeilen */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  max-width: 90px; /* Maximale Breite der Zellen */
+  height: 50px; /* Höhe für alle Zeilen */
+  max-height: 50px; /* Maximale Höhe für alle Zeilen */
+  overflow: hidden; /* Versteckt den überlaufenden Text */
+  text-overflow: ellipsis; /* Setzt ... bei überlaufendem Text */
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
 }
 
 /* Stil für die erste Zeile */
@@ -33,16 +32,6 @@ button.active {
 /* Stil für Button-Container */
 #buttonContainer {
   margin-bottom: 20px;
-}
-
-.cell-content {
-  max-height: 1.5em; /* Beschränkt die Höhe auf eine Zeile */
-  max-width: 300px; /* Maximale Breite der Zelle */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-  position: relative;
 }
 
 /* Modal CSS */
@@ -77,8 +66,7 @@ button.active {
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -132,4 +120,18 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+}
+
+/* Highlight search term */
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 30px;
+  height: 30px;
 }
