@@ -104,41 +104,48 @@ export class DatenTabelleComponent implements OnInit {
     const table = document.createElement('table');
     const headerRow = table.insertRow();
     if (type === 'data:person' || type === 'data:organisation') {
-      const emptyHeaderCell = headerRow.insertCell();
-      emptyHeaderCell.textContent = ''; // Leere Zelle für die Details-Spalte
+        const emptyHeaderCell = headerRow.insertCell();
+        emptyHeaderCell.textContent = ''; // Leere Zelle für die Details-Spalte
     }
     const headers: string[] = [];
 
+    // Erstelle die Kopfzeilen basierend auf den Daten
     this.filteredData.forEach(item => {
-      if (item.type === type) {
-        const row = table.insertRow();
-        if (type === 'data:person' || type === 'data:organisation') {
-          const detailButton = row.insertCell();
-          const button = document.createElement('button');
-          button.textContent = 'Details';
-          button.addEventListener('click', () => this.detailView.showModal(item));
-          detailButton.appendChild(button);
+        if (item.type === type) {
+            for (const key in item) {
+                if (!headers.includes(key)) {
+                    headers.push(key);
+                    const headerCell = document.createElement('th');
+                    headerCell.textContent = key;
+                    headerCell.addEventListener('click', () => this.showCellModal(key));
+                    headerRow.appendChild(headerCell);
+                }
+            }
         }
+    });
 
-        for (const key in item) {
-          if (!headers.includes(key)) {
-            headers.push(key);
-            const headerCell = headerRow.insertCell();
-            headerCell.textContent = key;
-            headerCell.addEventListener('click', () => this.showCellModal(key));
-          }
+    // Füge die Datenzeilen hinzu
+    this.filteredData.forEach(item => {
+        if (item.type === type) {
+            const row = table.insertRow();
+            if (type === 'data:person' || type === 'data:organisation') {
+                const detailButton = row.insertCell();
+                const button = document.createElement('button');
+                button.textContent = 'Details';
+                button.addEventListener('click', () => this.detailView.showModal(item));
+                detailButton.appendChild(button);
+            }
+
+            headers.forEach(header => {
+                const cell = row.insertCell();
+                cell.addEventListener('click', () => this.showCellModal(item[header]));
+                const content = item[header] ?? ''; // Zeigt "-" für leere Felder an
+                const div = document.createElement('div');
+                div.innerHTML = this.highlightText(content);
+                div.classList.add('truncate'); // Füge eine Klasse hinzu, um Überlauf zu handhaben
+                cell.appendChild(div);
+            });
         }
-
-        headers.forEach(header => {
-          const cell = row.insertCell();
-          cell.addEventListener('click', () => this.showCellModal(item[header]));
-          const content = item[header] || ''; // Zeigt "-" für leere Felder an
-          const div = document.createElement('div');
-          div.innerHTML = this.highlightText(content);
-          div.classList.add('truncate'); // Add a class to handle overflow
-          cell.appendChild(div);
-        });
-      }
     });
 
     dataContainer.appendChild(table);

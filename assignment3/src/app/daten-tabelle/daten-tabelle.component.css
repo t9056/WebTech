@@ -1,12 +1,13 @@
-/* -------------- Mashup Tabelle ----------------- */
+/* --------------Mashup----------------- */
 /* Stil für die Tabellen */
 table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 12px; /* Schriftgröße für die gesamte Tabelle verkleinern */
+  font-size: 12px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -18,15 +19,17 @@ th, td {
   white-space: nowrap; /* Verhindert Zeilenumbruch */
 }
 
+
 /* Stil für die erste Zeile */
 tr:first-child {
-  background-color: black;
-  color: white;
+  background-color: #343231;
+  color: #f2f2f2;
 }
 
 /* Stil für aktiven Button */
 button.active {
-  background-color: #4CAF50; /* Grün */
+  background-color: #4CAF50;
+  /* Grün */
 }
 
 /* Stil für Button-Container */
@@ -34,6 +37,57 @@ button.active {
   margin-bottom: 20px;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 30px;
+  height: 30px;
+}
+
+
+/* --------------MashupData Titel----------------- */
+.container {
+  text-align: center;
+  padding-left: 8px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.letter {
+  display: inline-block;
+  background-color: #343231;
+  color: #f2f2f2;
+  font-size: 24px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 2px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+#buttonContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+button {
+  margin: 5px;
+  background-color: #343231;
+  color:#f2f2f2;
+  border-radius: 5px;
+  font-size: 110%;
+  height: 1.5em;
+}
 /* Modal CSS */
 .modal {
   display: none;
@@ -52,11 +106,13 @@ button.active {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #343231;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  max-width: fit-content;
+  color: #f2f2f2;
 }
 
 .close {
@@ -72,45 +128,17 @@ button.active {
   cursor: pointer;
 }
 
-/* -------------- Titel ----------------- */
-.container {
-  text-align: center;
-  padding-left: 8px;
-  margin-top: 20px; /* Abstand nach oben */
+/* Neue Stile für responsives Design */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
 }
 
-.title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+@media (max-width: 768px) {
+  th, td {
+      font-size: 14px; /* Schriftgröße für kleinere Bildschirme anpassen */
+  }
 }
-
-.letter {
-  display: inline-block;
-  background-color: #000;
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  margin: 2px;
-  text-align: center;
-  border-radius: 5px;
-}
-
-#buttonContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 15px;
-}
-
-button {
-  margin: 5px;
-}
-
 /* -------------- Suchzeile ----------------- */
 .search-bar {
   width: 50%;
